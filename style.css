@@ -1,265 +1,444 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap");
+
+:root {
+    --primary-color: #4a90e2; /* Azul suave */
+    --secondary-color: #50e3c2; /* Verde água */
+    --accent-color: #f5a623; /* Laranja quente */
+    --background-color: #1c1c1e; /* Cinza escuro */
+    --surface-color: rgba(28, 28, 28, 0.9); /* Cinza escuro transparente */
+    --on-surface-color: #ffffff; /* Branco */
+    --on-background-color: #ffffff; /* Branco */
+    --button-color: #4a90e2; /* Azul suave */
+    --button-hover: #357abd; /* Azul escuro */
+    --invite-button-color: #ff6f61; /* Coral */
+    --invite-button-hover: #ff4a3a; /* Coral escuro */
+    --shadow-color: rgba(0, 0, 0, 0.3); /* Sombra suave */
+    --transition-speed: 0.3s;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.5;
-    color: #ecf0f1;
-    background-color: #121212;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.8;
+    color: var(--on-background-color);
+    background-color: var(--background-color);
     overflow-x: hidden;
-    animation: fadeIn 1s ease-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .header {
-    background-color: #1f1f1f;
-    color: #ecf0f1;
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
     padding: 1.5rem 0;
     text-align: center;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-    animation: fadeIn 1s ease-out;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: clamp(2.5rem, 6vw, 4rem);
     margin-bottom: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    color: #a64dff;
-    animation: fadeIn 1s ease-out;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: transparent;
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+    display: inline-block;
+    position: relative;
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
+    }
 }
 
 .navbar {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 2.5rem;
     align-items: center;
-    animation: fadeIn 1s ease-out;
+    margin-top: 1.5rem;
 }
 
-.navbar a, .navbar button {
-    color: #ecf0f1;
+.navbar a,
+.navbar button,
+.invite-btn,
+.logout-btn {
+    color: var(--on-surface-color);
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.navbar a:hover {
-    color: #a64dff;
+.navbar a::before,
+.navbar button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.7s;
 }
 
-.navbar button {
-    background-color: #e74c3c;
-    color: #ecf0f1;
+.navbar a:hover::before,
+.navbar button:hover::before {
+    left: 100%;
+}
+
+.navbar button,
+.logout-btn {
+    background-color: var(--button-color);
     border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: #ffffff;
+    font-weight: 600;
 }
 
-.navbar button:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-}
+.navbar button:hover,
 
 .container {
-    width: 95%;
-    max-width: 1200px;
-    margin: 1.5rem auto;
-    padding: 0.75rem;
-    animation: fadeIn 1s ease-out;
+    width: 90%;
+    max-width: 1400px;
+    margin: 10rem auto 4rem;
+    padding: 3rem;
+    flex: 1;
 }
 
 .banner {
     background-size: cover;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 1s ease-out;
+    padding: 1rem 4rem;
+    border-radius: 40px;
+    box-shadow: 0 20px 40px var(--shadow-color);
+    background-color: var(--surface-color);
+    margin-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 80%
+    );
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .banner-content {
     text-align: center;
-    color: #ecf0f1;
+    color: var(--on-surface-color);
+    position: relative;
+    z-index: 1;
+}
+
+.banner-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    font-family: "Playfair Display", serif;
+    font-weight: 800;
 }
 
 .bot-options {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    animation: fadeIn 1s ease-out;
+    gap: 4rem;
+    margin-top: 5rem;
 }
 
 .bot-option {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 40px;
+    padding: 4rem;
     max-width: 45%;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 25px 50px var(--shadow-color);
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+    position: relative;
+    overflow: hidden;
+}
+
+.bot-option::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    z-index: 1;
 }
 
 .bot-option:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transform: translateY(-10px);
+    box-shadow: 0 40px 80px var(--shadow-color);
 }
 
-.bot-image {
-    width: 100%;
-    height: auto;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 6px;
+.bot-option h3 {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    color: var(--on-surface-color);
 }
 
-.bot-info {
-    padding: 0.75rem;
+.bot-option p {
+    color: var(--on-surface-color);
+    font-size: 1.2rem;
+    line-height: 1.6;
 }
 
-.bot-name {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #a64dff;
+/* Estilo geral do footer */
+.footer {
+    background-color: var(--surface-color);
+    padding: 3rem 0;
+    position: relative;
+    overflow: hidden;
+    margin-top: -9rem; /* Reduzido para diminuir a distância do conteúdo anterior */
 }
 
-.bot-description {
-    margin-bottom: 0.75rem;
-}
-
-.bot-description ul {
-    list-style-type: disc;
-    margin-left: 1rem;
-}
-
-.invite-btn {
-    display: inline-block;
-    background-color: #a64dff;
-    color: #ecf0f1;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
+/* Conteúdo dentro do footer */
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
     text-align: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-text {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--on-surface-color);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 20px 40px;
+    display: inline-block;
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    -webkit-background-clip: text; /* Prefixo para WebKit */
+    background-clip: text;         /* Propriedade padrão */
+    -webkit-text-fill-color: transparent; /* Prefixo para WebKit */
+    position: relative;
+}
+
+
+/* Efeito de animação do texto do footer */
+.footer-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-text:hover::after {
+    transform: scaleX(1);
+}
+
+/* Estilo das estrelas e brilhos no footer */
+.star {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.footer-sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+            circle,
+            var(--primary-color) 1px,
+            transparent 1px
+        ),
+        radial-gradient(circle, var(--secondary-color) 1px, transparent 1px),
+        radial-gradient(circle, var(--accent-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position:
+        0 0,
+        30px 30px,
+        15px 15px;
+    opacity: 0.1;
+    animation: sparkle 120s linear infinite;
+}
+
+
+/* Ajuste dos GIFs */
+.banner img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Botão de convite com animação incrível */
+.invite-btn {
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    background-size: 200% 200%;
+    color: var(--on-surface-color);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientAnimation 4s linear infinite;
+}
+
+.invite-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1),
+        rgba(0, 0, 0, 0.1)
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.invite-btn:hover::before {
+    opacity: 0.5;
+    animation: sparkle 1.5s linear infinite;
 }
 
 .invite-btn:hover {
-    background-color: #8e2dcf;
     transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-.footer {
-    background-color: #1f1f1f;
-    color: #a64dff;
-    text-align: center;
-    padding: 0.75rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
-.logout-btn {
-    background-color: #e74c3c;
-    color: #ecf0f1;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.logout-btn:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-    from {
+@keyframes sparkle {
+    0% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: scale(1);
     }
-    to {
+    50% {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
     }
 }
 
-/* Media Queries for Mobile Devices */
 
-@media (max-width: 768px) {
-    .title {
-        font-size: 2rem;
-    }
 
-    .navbar {
-        flex-direction: column;
-    }
 
-    .navbar a, .navbar button {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-    }
 
-    .container {
-        width: 90%;
-    }
-
-    .banner {
-        padding: 1rem;
-    }
-
-    .bot-option {
-        max-width: 100%;
-    }
-
-    .bot-name {
-        font-size: 1.25rem;
-    }
-
-    .bot-description {
-        font-size: 0.9rem;
-    }
-
-    .invite-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 1.5rem;
-    }
-
-    .navbar a, .navbar button {
-        font-size: 0.8rem;
-    }
-
-    .bot-option {
-        padding: 0.5rem;
-        max-width: 100%;
-    }
-
-    .bot-name {
-        font-size: 1.1rem;
-    }
-
-    .bot-description {
-        font-size: 0.8rem;
-    }
-
-    .invite-btn {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.8rem;
-    }
-}
