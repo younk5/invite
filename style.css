@@ -99,18 +99,85 @@ body {
 .navbar a,
 .navbar button,
 .invite-btn,
-.logout-btn {
+/* Botão de convite com animação incrível */
+.invite-btn {
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    background-size: 200% 200%;
     color: var(--on-surface-color);
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
     position: relative;
     overflow: hidden;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientAnimation 4s linear infinite;
+}
+
+.invite-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1),
+        rgba(0, 0, 0, 0.1)
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.invite-btn:hover::before {
+    opacity: 0.5;
+    animation: sparkle 1.5s linear infinite;
+}
+
+.invite-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
 }
 
 .navbar a::before,
@@ -215,8 +282,8 @@ body {
 
 .bot-option {
     background: var(--surface-color);
-    border-radius: 40px;
-    padding: 4rem;
+    border-radius: 45px;
+    padding: 5rem;
     max-width: 45%;
     box-shadow: 0 25px 50px var(--shadow-color);
     transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
@@ -350,95 +417,102 @@ body {
     animation: sparkle 120s linear infinite;
 }
 
-
-/* Ajuste dos GIFs */
-.banner img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Botão de convite com animação incrível */
-.invite-btn {
-    background: linear-gradient(
-        45deg,
-        var(--primary-color),
-        var(--secondary-color),
-        var(--accent-color)
-    );
-    background-size: 200% 200%;
-    color: var(--on-surface-color);
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: gradientAnimation 4s linear infinite;
-}
-
-.invite-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.1),
-        rgba(0, 0, 0, 0.1)
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.invite-btn:hover::before {
-    opacity: 0.5;
-    animation: sparkle 1.5s linear infinite;
-}
-
-.invite-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-}
-
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 0%;
+/* Media queries para dispositivos móveis */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px; /* Reduzindo o tamanho da fonte para telas menores */
     }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
-}
 
-@keyframes sparkle {
-    0% {
-        opacity: 0;
-        transform: scale(1);
+    .header {
+        padding: 1rem 0; /* Ajustando o padding do cabeçalho */
     }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
+
+    .title {
+        font-size: clamp(2rem, 6vw, 3rem); /* Ajustando o tamanho da fonte do título */
     }
-    100% {
-        opacity: 0;
-        transform: scale(1);
+
+    .navbar {
+        flex-direction: column; /* Mudando a direção da navbar para coluna */
+        gap: 1rem; /* Ajustando o espaço entre os itens da navbar */
+        margin-top: 1rem; /* Reduzindo a margem superior */
+    }
+
+    .navbar a,
+    .navbar button {
+        font-size: 1rem; /* Ajustando o tamanho da fonte dos botões da navbar */
+        padding: 0.8rem 1.5rem; /* Ajustando o padding dos botões */
+    }
+
+    .container {
+        padding: 2rem; /* Reduzindo o padding do container */
+        margin: 5rem auto 2rem; /* Ajustando a margem do container */
+    }
+
+    .banner {
+        padding: 2rem 1rem; /* Ajustando o padding do banner */
+    }
+
+    .banner-content h2 {
+        font-size: 2.5rem; /* Ajustando o tamanho da fonte do título no banner */
+    }
+
+    .bot-options {
+        gap: 2rem; /* Reduzindo o espaço entre as opções do bot */
+    }
+
+    .bot-option {
+        max-width: 90%; /* Aumentando a largura máxima das opções do bot */
+        padding: 2rem; /* Reduzindo o padding das opções do bot */
+    }
+
+    .bot-option h3 {
+        font-size: 2rem; /* Ajustando o tamanho da fonte do título da opção do bot */
+    }
+
+    .footer-text {
+        font-size: 1.4rem; /* Ajustando o tamanho da fonte do texto do footer */
+        padding: 10px 20px; /* Ajustando o padding do texto do footer */
+    }
+
+    img {
+        max-width: 100%; /* Faz com que o GIF ocupe 100% da largura do contêiner */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block; /* Remove espaço em branco abaixo da imagem */
+        margin: 0 auto; /* Centraliza a imagem */
+    }
+
+    /* Se os GIFs estiverem em um container específico */
+    .gif-container {
+        width: 100%; /* Faz o container ocupar 100% da largura */
+        overflow: hidden; /* Oculta qualquer parte que exceda o tamanho do container */
+        display: flex; /* Permite centralizar o GIF caso tenha margens */
+        justify-content: center; /* Centraliza o GIF horizontalmente */
+    }
+
+    /* Outros ajustes que você pode querer fazer */
+    .banner img {
+        width: 100%; /* Faz o GIF no banner ocupar toda a largura */
+        height: auto; /* Mantém a proporção */
     }
 }
 
+/* Ajustes para GIFs em Desktop */
+@media (min-width: 769px) {
+    img {
+        max-width: 100%; /* Garante que os GIFs não excedam a largura do contêiner */
+        height: auto; /* Mantém a proporção da imagem */
+    }
 
+    /* Se os GIFs estiverem em um container específico */
+    .gif-container {
+        width: auto; /* Permite que o container se ajuste ao conteúdo */
+        overflow: visible; /* Mostra todo o conteúdo do container */
+        display: block; /* Para que o container se comporte como um bloco */
+    }
 
-
-
+    /* Ajustes para imagens dentro de banners ou seções específicas */
+    .banner img {
+        max-width: 100%; /* Faz o GIF no banner ocupar toda a largura */
+        height: auto; /* Mantém a proporção */
+    }
+}
