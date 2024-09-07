@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
 :root {
     --primary-color: #4a90e2; /* Azul suave */
@@ -29,7 +30,7 @@ html {
 }
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.8;
     color: var(--on-background-color);
     background-color: var(--background-color);
@@ -37,6 +38,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
 }
 
 .header {
@@ -225,12 +229,16 @@ header {
 }
 
 .container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 10rem auto 4rem;
-    padding: 3rem;
-    flex: 1;
+    width: 75%; /* Largura um pouco maior para mais espaço */
+    max-width: 1300px; /* Largura máxima maior */
+    margin: 200px auto 0; /* Aumenta a margem superior para 100px */
+    padding: 25px; /* Espaçamento interno maior */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+    min-height: 10px; /* Mantém a altura mínima */
+
 }
+
+
 
 .banner {
     background-size: cover;
