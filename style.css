@@ -52,8 +52,17 @@ body {
     z-index: 1000;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    align-items: center; /* Centraliza os elementos horizontalmente */
 }
 
+/* Estilo da header para centralização */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo da classe .title */
 .title {
     font-size: clamp(2.5rem, 6vw, 4rem);
     margin-bottom: 0.5rem;
@@ -76,6 +85,7 @@ body {
     animation: shine 2s infinite;
 }
 
+
 @keyframes shine {
     0% {
         text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
@@ -94,12 +104,15 @@ body {
     gap: 2.5rem;
     align-items: center;
     margin-top: 1.5rem;
+    background: var(--surface-color);
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
-
 .navbar a,
 .navbar button,
-.invite-btn,
-/* Botão de convite com animação incrível */
 .invite-btn {
     background: linear-gradient(
         45deg,
@@ -210,8 +223,6 @@ body {
     color: #ffffff;
     font-weight: 600;
 }
-
-.navbar button:hover,
 
 .container {
     width: 90%;
@@ -364,7 +375,6 @@ body {
     position: relative;
 }
 
-
 /* Efeito de animação do texto do footer */
 .footer-text::after {
     content: "";
@@ -415,6 +425,29 @@ body {
         15px 15px;
     opacity: 0.1;
     animation: sparkle 120s linear infinite;
+}
+
+/* Estilo para a seção "Quem é Star" */
+#quem-e-star {
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
+    padding: 3rem 1rem;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    margin: 2rem 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Media queries para dispositivos móveis */
@@ -481,14 +514,6 @@ body {
         margin: 0 auto; /* Centraliza a imagem */
     }
 
-    /* Se os GIFs estiverem em um container específico */
-    .gif-container {
-        width: 100%; /* Faz o container ocupar 100% da largura */
-        overflow: hidden; /* Oculta qualquer parte que exceda o tamanho do container */
-        display: flex; /* Permite centralizar o GIF caso tenha margens */
-        justify-content: center; /* Centraliza o GIF horizontalmente */
-    }
-
     /* Outros ajustes que você pode querer fazer */
     .banner img {
         width: 100%; /* Faz o GIF no banner ocupar toda a largura */
@@ -503,16 +528,10 @@ body {
         height: auto; /* Mantém a proporção da imagem */
     }
 
-    /* Se os GIFs estiverem em um container específico */
-    .gif-container {
-        width: auto; /* Permite que o container se ajuste ao conteúdo */
-        overflow: visible; /* Mostra todo o conteúdo do container */
-        display: block; /* Para que o container se comporte como um bloco */
-    }
-
     /* Ajustes para imagens dentro de banners ou seções específicas */
     .banner img {
         max-width: 100%; /* Faz o GIF no banner ocupar toda a largura */
         height: auto; /* Mantém a proporção */
     }
 }
+
